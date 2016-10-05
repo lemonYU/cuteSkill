@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>实现loading动画</title>
+	</head>
+	<style>
+		.box {
+			width: 100%;
+			padding: 3%;
+			box-sizing: border-box;
+			overflow: hidden;
+		}
+		.box .loading {
+			width: 30%;
+			height: 200px;
+			box-sizing: border-box;
+			margin-left: 3%;
+			float: left;
+			border: 1px solid gray;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.loading-1 {
+			width: 35px;
+			height: 35px;
+			position: relative;
+		}
+		@-webkit-keyframes loading-1 {
+			0% {
+				transform: rotate(0deg);
+			}
+			50% {
+				transform: rotate(180deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+		.loading-1 i {
+			display: block;
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			background: linear-gradient(transparent 0%, transparent 70%, #333 30%, #333 100%);
+			-webkit-animation: loading-1 0.6s linear 0s infinite;
+		}
+		.loading-2 i {
+			display: inline-block;
+			width: 4px;
+			height: 35px;
+			margin: 0 2px;
+			border-radius: 2px;
+			background-color: darkcyan;
+		}
+		@-webkit-keyframes loading-2 {
+			0% {
+				transform: scaleY(1);
+			}
+			50% {
+				transform: scaleY(0.4);
+			}
+			100% {
+				transform: scaleY(1);
+			}
+		}
+		.loading-2 i:nth-child(1) {
+			-webkit-animation: loading-2 1s ease-in 0.1s infinite;
+		}
+		.loading-2 i:nth-child(2) {
+			-webkit-animation: loading-2 1s ease-in 0.2s infinite;
+		}
+		.loading-2 i:nth-child(3) {
+			-webkit-animation: loading-2 1s ease-in 0.3s infinite;
+		}
+		.loading-2 i:nth-child(4) {
+			-webkit-animation: loading-2 1s ease-in 0.4s infinite;
+		}
+		.loading-2 i:nth-child(5) {
+			-webkit-animation: loading-2 1s ease-in 0.5s infinite;
+		}
+		.loading-3 {
+			position: relative;
+		}
+		.loading-3 i {
+			position: absolute;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			display: block;
+			background-color: forestgreen;
+		}
+		.loading-3 i:nth-child(1) {
+			top: 25px;
+			left: 0px;
+			-webkit-animation: loading-3 1s ease-in 0s infinite;
+		}
+		.loading-3 i:nth-child(2) {
+			top: 17px;
+			left: 17px;
+			-webkit-animation: loading-3 1s ease-in -0.12s infinite;
+		}
+		.loading-3 i:nth-child(3) {
+			top: 0px;
+			left: 25px;
+			-webkit-animation: loading-3 1s ease-in -0.24s infinite;
+		}
+		.loading-3 i:nth-child(4) {
+			top: -17px;
+			left: 17px;
+			-webkit-animation: loading-3 1s ease-in -0.36s infinite;
+		}
+		.loading-3 i:nth-child(5) {
+			top: -25px;
+			left: 0px;
+			-webkit-animation: loading-3 1s ease-in -0.48s infinite;
+		}
+		.loading-3 i:nth-child(6) {
+			top: -17px;
+			left: -17px;
+			-webkit-animation: loading-3 1s ease-in -0.6s infinite;
+		}
+		.loading-3 i:nth-child(7) {
+			top: 0px;
+			left: -25px;
+			-webkit-animation: loading-3 1s ease-in -0.72s infinite;
+		}
+		.loading-3 i:nth-child(8) {
+			top: 17px;
+			left: -17px;
+			-webkit-animation: loading-3 1s ease-in -0.84s infinite;
+		}
+		@-webkit-keyframes loading-3 {
+			50% {
+				transform: scale(0.4);
+				opacity: 0.3;
+			}
+			100% {
+				transform: scale(1);
+				opacity: 1;
+			}
+		}
+	</style>
+	<body>
+		<div class="box">
+			<div class="loading">
+				<div class="loading-1">
+					<i></i>
+				</div>
+			</div>
+			<div class="loading">
+				<div class="loading-2">
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+				</div>
+			</div>
+			<div class="loading">
+				<div class="loading-3">
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+					<i></i>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
