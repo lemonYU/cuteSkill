@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>淘宝放大镜</title>
+	<style>
+	html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img{margin:0;padding:0}
+	#fangdajing-wrapper{
+		width:350px;
+		height:350px;
+		border: 1px solid #000;
+		margin:100px 20px 0px 100px;
+		float:left;
+		position:relative;
+	}
+	/* 放大镜的宽度:放大后的宽度 = 小图的宽度:大图的宽度; */
+	#fangdajing-wrapper .fangdajing{
+		width:200px;
+		height:200px;
+		background:url(images/67/scope.png) repeat;
+		position:absolute;
+		left:0;
+		top:0;
+		cursor:move;
+		display:none;
+	}
+
+
+	#fangdajing-wrapper .fangdahou{
+		width:400px;
+		height:400px;
+		background:url(images/67/datu.jpg) 0 0;
+		position:absolute;
+		top:0;
+		right:-420px;
+		display:none;
+	}
+	h3{
+		float:left;
+		margin-top:100px;
+	}
+	</style>
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script>
+	$(function(){
+		var $fangdajing = $('#fangdajing-wrapper .fangdajing');
+		var $fangdahou  = $('#fangdajing-wrapper .fangdahou');
+		var $fangdajing_wrapper = $('#fangdajing-wrapper');
+		var fangdajing_left = 0;
+		var fangdajing_top  = 0;
+		var fangdajing_wrapper_left = $fangdajing_wrapper.offset().left;
+		var fangdajing_wrapper_top  = $fangdajing_wrapper.offset().top;
+		var fangdajing_width = $fangdajing.width();
+		var fangdajing_height = $fangdajing.height();
+		var fangdajing_max_left = $fangdajing_wrapper.width() - fangdajing_width;
+		var fangdajing_max_top  = $fangdajing_wrapper.height() -  fangdajing_height;
+		var fangdahou_left = 0;
+		var fangdahou_top  = 0;
+
+		$fangdajing_wrapper.mouseenter(function(event) {
+			$fangdajing.show();
+			$fangdahou.show();
+
+			// 当鼠标在小图上移动的时候，放大镜也跟着移动
+			$fangdajing_wrapper.mousemove(function(event) {
+				fangdajing_left = event.pageX - fangdajing_wrapper_left - fangdajing_width/2;
+				fangdajing_top  = event.pageY - fangdajing_wrapper_top - fangdajing_height/2;
+
+				// 阻止放大镜移出左边
+				if(fangdajing_left<0){
+					fangdajing_left = 0;
+				}
+				// 阻止放大镜移出上边
+				if(fangdajing_top<0){
+					fangdajing_top = 0;
+				}
+				// 阻止放大镜移出右边
+				if(fangdajing_left>fangdajing_max_left){
+					fangdajing_left = fangdajing_max_left;
+				}
+				// 阻止放大镜移出下边
+				if(fangdajing_top>fangdajing_max_top){
+					fangdajing_top = fangdajing_max_top;
+				}
+
+				$fangdajing.css({left:fangdajing_left, top:fangdajing_top});
+
+
+				// 因为图片是等比缩放的，所以  =>  放大镜的left:放大后的left = 小图的宽度:大图的宽度
+				// 放大后的left = 放大镜的left*大图的宽度/小图的宽度
+
+				fangdahou_left = fangdajing_left*700/350;
+				fangdahou_top  = fangdajing_top*700/350;
+
+				$fangdahou.css('background-position', '-'+fangdahou_left+'px -'+fangdahou_top+'px');
+			});
+		});
+
+		$fangdajing_wrapper.mouseleave(function(event) {
+			$fangdajing.hide();
+			$fangdahou.hide();
+		});
+	});
+	</script>
+</head>
+<body>
+	<div id="fangdajing-wrapper">
+		<img src="images/67/xiaotu.jpg" class="xiaotu">
+		<div class="fangdajing"></div>
+		<div class="fangdahou"></div>
+	</div>
+	<h3>贾玲春晚同款毛衣，穿出女神气质</h3>
+</body>
+</html>

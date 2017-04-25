@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3D焦点图</title>
+	<style>
+	html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img{margin:0;padding:0}
+	.carousel-wrapper{
+		width:500px;
+		height:280px;
+		margin:100px auto;
+		perspective:500px;
+		position:relative;
+	}
+	#carousel{
+		width:500px;
+		height:280px;
+		list-style-type:none;
+		position:relative;
+	}
+	#carousel li{
+		width:500px;
+		height:280px;
+		position:absolute;
+		left:0;
+		top:0;
+		transition:all 0.5s ease 0s;
+	}
+	.king{
+		transform:translateZ(-50px);
+		z-index:10;
+	}
+	.left1{
+		transform:rotateY(30deg) translateZ(-150px) translateX(-100px);
+		z-index:9;
+	}
+	.left2{
+		transform:rotateY(40deg) translateZ(-300px) translateX(-200px);
+		z-index:8;
+	}
+	.right1{
+		transform:rotateY(-30deg) translateZ(-150px) translateX(100px);
+		z-index:9;
+	}
+	.right2{
+		transform:rotateY(-40deg) translateZ(-300px) translateX(200px);
+	}
+	.bench-warmer{
+		transform:translateZ(-200px);
+		opacity:0;
+	}
+	.carousel-wrapper span{
+		width:60px;
+		height:60px;
+		background:rgba(0, 0, 255, .5);
+		color:white;
+		line-height:60px;
+		text-align: center;
+		font-size:50px;
+		position:absolute;
+		left:-320px;
+		top:50%;
+		margin-top:-30px;
+		z-index:11;
+		cursor:pointer;
+	}
+	.carousel-wrapper #right-btn{
+		right:-320px;
+		left:auto;
+	}
+	#carousel img{
+		width: 500px;
+		height: 280px;
+	}
+	</style>
+	<script>
+	window.onload=function(){
+		var left_btn  = document.getElementById('left-btn');
+		var right_btn = document.getElementById('right-btn');
+		var lis       = document.getElementsByTagName('li');
+		var lock      = false;
+
+		//classes数组中保存的就是lis对应的className，classes和lis是通过索引值对应的。
+		var classes   = ['left2', 'left1','king', 'right1','right2', 'bench-warmer','bench-warmer', 'bench-warmer','bench-warmer'];
+		console.log(classes);
+
+		right_btn.onclick = function(){
+			if(lock==false){
+				lock = true;
+
+				setTimeout(function(){
+					lock = false;
+				}, 1000);
+
+				var last_class = classes.pop();    /*取出数组中最后一个*/
+				classes.unshift(last_class);
+
+				console.log(classes);
+				for(var i=0; i<lis.length; i++){
+					lis[i].className = classes[i];   //因为classes发生了变化，所以lis[i]的className也要跟着变。
+				}
+			}
+
+				
+		}
+
+		left_btn.onclick = function(){
+			if(lock==false){   //动画没有被锁定
+				lock = true;
+
+				setTimeout(function(){
+					lock = false
+				}, 1000);   //1秒后解锁
+
+				var first_class = classes.shift();
+				classes.push(first_class);
+
+				console.log(classes);
+				for(var i=0; i<lis.length; i++){
+					lis[i].className = classes[i];   //因为classes发生了变化，所以lis[i]的className也要跟着变。
+				}
+			}
+				
+		}
+	}
+	</script>
+</head>
+<body>
+	<div class="carousel-wrapper">
+		<ul id="carousel">
+			<li class="left2"><img src="images/50/01.jpg"></li>
+			<li class="left1"><img src="images/50/02.jpg"></li>
+			<li class="king"><img src="images/50/03.jpg"></li>
+			<li class="right1"><img src="images/50/04.jpg"></li>
+			<li class="right2"><img src="images/50/05.jpg"></li>
+			<li class="bench-warmer"><img src="images/50/06.jpg"></li>
+			<li class="bench-warmer"><img src="images/50/07.jpg"></li>
+			<li class="bench-warmer"><img src="images/50/08.jpg"></li>
+			<li class="bench-warmer"><img src="images/50/09.jpg"></li>
+		</ul>
+		<span id="left-btn">&lt;</span>
+		<span id="right-btn">&gt;</span>
+	</div>
+</body>
+</html>

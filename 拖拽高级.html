@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>拖拽高级</title>
+	<style>
+	.draft{
+		width:600px;
+		height:600px;
+		background-color: #109d71;
+		margin:50px auto;
+		position:relative;
+	}
+	.draft span{
+		width:200px;
+		height:200px;
+		border: 1px solid #000;
+		position:absolute;
+		left:0;
+		top:0;
+		cursor:move;
+		background:#c3003c url(images/65.jpg);
+	}
+	</style>
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script>
+	$(function(){
+		var $span      = $('span');
+		var span_width = $span.outerWidth();
+		var span_height = $span.outerHeight();
+		var x=0;
+		var y=0;
+		var $div          = $('div');
+		var span_max_left = $div.width()-span_width;
+		var span_max_top  = $div.height()-span_height;
+		var div_x         = $div.offset().left;
+		var div_y         = $div.offset().top;
+
+		//拖拽，需要鼠标先点下，然后再拖着走
+		//拖拽是两个事件:先鼠标按下，然后再mousemove
+		$span.mousedown(function(event) {
+			$(window).mousemove(function(event) {
+				// 事件发生地的坐标值如下：
+				// console.log(event.pageX, event.pageY);
+
+				x = event.pageX - div_x -span_width/2;
+				y = event.pageY - div_y -span_height/2;
+				if(x<0){
+					x=0;
+				}
+				if(y<0){
+					y=0;
+				}
+				if(x>span_max_left){
+					x=span_max_left;
+				}
+				if(y>span_max_top){
+					y=span_max_top;
+				}
+
+				$span.css({left:x, top:y});
+			});
+		});
+
+		// 当鼠标抬起的时候，解绑鼠标移动事件
+		$(window).mouseup(function(event) {
+			$(window).unbind('mousemove');   //解绑
+		});
+	});
+	</script>
+</head>
+<body>
+	<div class="draft">
+		<span></span>
+	</div>
+</body>
+</html>
